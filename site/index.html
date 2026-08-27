@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登月者的花未眠 · 海平面下的花未眠 — 物理硕士择校评分系统研究站</title>
+<meta name="description" content="物理硕士择校评分系统 v68.60–v68.69 全量研究记录：53校面板批判性重扫、代码级方向扫描、光伏锂电三链实证、七技能核查。开源研究站。">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✾</text></svg>">
+</head>
+<body>
+
+<header id="cover">
+  <canvas class="stars" id="stars"></canvas>
+  <div class="moonwrap" id="moonwrap"></div>
+  <div id="cover-inner">
+    <p class="c-kick">OPEN RESEARCH LOG · V68.60 — V68.69 · 2026-08</p>
+    <h1>登月者的<span class="thin">花未眠</span><br>海平面下的<span class="thin">花未眠</span></h1>
+    <p class="c-sub">物理硕士择校评分系统研究站 —— 73 份招生 PDF、53 校、59 个二级学科代码、644 个交易日行情、七次技能核查。全部数据可下钻，全部结论带置信度。</p>
+    <div class="c-meta">
+      <span>113 SCHOOLS</span><span>53 PANEL</span><span>59 CODES</span><span>570 TESTS PASSED</span><span>PARAM 220 · 缺解释 0</span>
+    </div>
+    <div class="c-img">
+      <img src="assets/cover_sea_flower.jpg" alt="海平面上的花未眠——夜色海面上的发光花" loading="eager">
+      <p class="c-cap">FIG. 0 · THE SLEEPLESS FLOWER ABOVE SEA LEVEL · AI-GENERATED MOTIF, 2026-08-27</p>
+    </div>
+  </div>
+  <p class="scroll-hint">SCROLL · 花未眠</p>
+</header>
+
+<nav id="toc"><div class="t-in">
+  <a href="#s0">§0 纪要</a><a href="#s1">§1 数据底座</a><a href="#s2">§2 三模式地图</a>
+  <a href="#s3">§3 降温实证</a><a href="#s4">§4 方向分裂</a><a href="#s5">§5 三链分离</a>
+  <a href="#s6">§6 裁决</a><a href="#s7">§7 捡漏组合</a><a href="#s8">§8 警示</a>
+  <a href="#s9">§9 协作</a><a href="#s10">§10 版本志</a><a href="#src">信源</a>
+</div></nav>
+<main>
+
+<section class="sec" id="s0"><div class="prose">
+  <p class="sec-no">SECTION 00 · EXECUTIVE SUMMARY</p>
+  <h2>这一轮对话到底做了什么</h2>
+  <p class="dek">十个版本、五次结构性升级、一次推翻自己——所有数字都能点开看到出处。</p>
+  <p class="body">本对话（2026-08-25 至 08-27）把物理硕士择校评分系统从 <span class="hlnum" data-drill data-t="基线版本" data-v="v68.59" data-s="上一轮交接时的系统状态：113校主库、34校PDF台账、Gillespie经验参数。" data-src="项目 CHANGELOG.md, 2026-08-25">v68.59</span> 推进到 <span class="hlnum" data-drill data-t="当前版本" data-v="v68.69" data-s="七技能全跑核查后：拆链断裂修复、降温结论升级confA、交接五件套落盘。" data-src="git 9e2c874, 2026-08-27">v68.69</span>。四次数据扩容、三次方法论升级、一次链级自我纠错，全程 <span class="hlnum" data-drill data-t="测试基线" data-v="570 passed" data-s="pytest 全量绿（含 pre-commit hook 重建），单轮跑约 30 分钟。" data-src="tests/test_engine.py, 2026-08-27">570 项测试</span>全绿。</p>
+  <p class="body">最硬的三条结论：其一，<b>0702 物理学考研正在全市场降温</b>——13 所零调剂堡垒校里 10 所纯一志愿地板分下降，南昌大学两年跌去 <span class="negnum" data-drill data-t="南昌大学一志愿最低录取分" data-v="374 → 278" data-s="2024→2026，-96分，全库最大降幅；β堡垒校零调剂，地板分不含调剂污染。" data-src="K1 新东方PDF · K6 无污染验证, 2026-08-26">96 分</span>；其二，<b>北京科技大学 2026 年一志愿复试 74 人、录取 0 人</b>，堡垒翻脸只需要一个缩盘年份；其三，光伏和锂电不是一条链——前者板块修复但龙头陷价格战，后者全产业链景气翻倍，混为一谈会同时犯两个错。</p>
+  <blockquote class="quote-card">
+    <p class="q-text">"市场维度，南昌大学是势能最低点；用户适配维度，它不是。门槛降了 100 分，但你和这门课之间的摩擦一分没降。"</p>
+    <p class="q-who">— <b>南昌大学三维裁决</b>, v68.66, 2026-08-26</p>
+  </blockquote>
+  <div class="term-mag">
+    <article class="term" tabindex="0">
+      <h3 class="t-abbr">53 / 59</h3>
+      <p class="t-full">PANEL SCHOOLS / SUBJECT CODES</p>
+      <p class="t-gist">新东方 PDF 台账从 34 校扩到 53 校，按二级学科代码分立出 59 个方向。</p>
+      <div class="t-more"><p>郑州大学×3、山西大学×3、昆明理工×2、大连理工×2 的"同校不同代码"首次被拆开评估——山西大学 070203 必达 385、070205 必达 285，同校差 100 分。此前按"校"评估会把这两类考生混为一谈。</p></div>
+      <p class="t-hint">HOVER FOR THE FULL STORY</p>
+    </article>
+    <article class="term" tabindex="0">
+      <h3 class="t-abbr">α β γ ∅</h3>
+      <p class="t-full">FOUR ADMISSION PATTERNS + VACUUM</p>
+      <p class="t-gist">三录取模式判别法落地，并新设"真空窗"修正 γ 规则的系统性误判。</p>
+      <div class="t-more"><p>β=零调剂堡垒 14 校、α=过线即录 4 校、γ=高调剂陷阱 6 校、vacuum=一志愿真空窗 10 校（新设：通过率≥0.9 时，调剂填的是空缺名额而非刷一志愿）。烟台/温州两校因此被移出捡漏池。</p></div>
+      <p class="t-hint">HOVER FOR THE FULL STORY</p>
+    </article>
+    <article class="term" tabindex="0">
+      <h3 class="t-abbr">+185%</h3>
+      <p class="t-full">LITHIUM VS PV DIVERGENCE</p>
+      <p class="t-gist">宁德时代两年 +185%，隆基绿能较高点 -47%——"新能源"必须拆开说。</p>
+      <div class="t-more"><p>链级 ETF 复核进一步推翻了"单龙头代全链"：光伏 ETF 较低点 +35%（板块在修复，隆基弱是个体价格战），锂电 ETF 较低点 +101%（全链景气）。系统新增 pv_solar / lithium_batt 两个评分字段，权重独立通道，不摊薄全库标尺。</p></div>
+      <p class="t-hint">HOVER FOR THE FULL STORY</p>
+    </article>
+  </div>
+  <div class="note-box"><p><b>关于这个网站的名字。</b>川端康成凌晨四点看海棠花未眠。这个项目的所有核查也发生在无人值守的夜间批次里——数据在海平面下静静生长，花在水面上开。开源仓库同名：<i>登月者的花未眠 · 海平面下的花未眠</i>。</p></div>
+</div></section>
+
+<section class="sec" id="s1"><div class="prose">
+  <p class="sec-no">SECTION 01 · DATA FOUNDATION</p>
+  <h2>数据底座：73 份 PDF 怎么变成 59 行证据</h2>
+  <p class="dek">解析器先升级，台账才可信——同校多代码"年份覆盖"缺陷在本轮修复。</p>
+  <p class="body">本轮新增 19 所学校的招生面板（昆明理工、西北大学、四川大学、燕山大学、安徽大学、中科大、上海理工、北科大、合工大、华东理工、南京师大、江苏大学、南航、南理工、宁夏大学、广西师大、南昌大学、兰州理工、内蒙古大学），台账从 <span class="hlnum">34 → 53 校</span>。关键工程修复：旧解析器对同校多代码 PDF 做"年份 update"会互相覆盖，新解析器按文件名提取专业代码（070201/070202/070205…）分立 <span class="hlnum" data-drill data-t="sub_codes 结构" data-v="53校 · 59代码" data-s="每代码独立存年份面板+初复试比例+参考书；代表口径按年份完整度与070200>070205优先级选出，向后兼容旧消费者。" data-src="panel_extract.py v68.66, 2026-08-26">sub_codes</span>，从此方向级判别成为可能。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">国家线四年：2024 是顶，2026 是谷</p>
+    <p class="fig-sub">0702 NATIONAL CUT-OFF · A/B 区总分线 · 单位:分 · 点击数据点下钻</p>
+    <canvas class="chart" id="ch-natline" height="340"></canvas>
+    <p class="fig-src"><b>K3</b> 新东方PDF国家线表, 2026-08-15 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <p class="body">A 区线 2024 年 <span class="hlnum">288</span> → 2026 年 <span class="hlnum">275</span>，两年 <span class="negnum">-13 分</span>；B 区同步 278→265。国家线是全市场最干净的温度计——它不含任何单一院校的口径噪声。这条曲线是后文一切"降温"判断的底座，但仅有它还不够：国家线降可能只是公共课难度变化，真正的证据在 §3 的一志愿地板分。</p>
+  <div class="motif">
+    <img src="assets/motif_roots.jpg" alt="海平面下的花——根系意象" loading="lazy">
+    <p class="m-txt">数据在海平面下生长。看得见的分数线只是水面上的花；水面下的根系，是 73 份 PDF、644 个交易日、59 个方向代码的逐行解析。</p>
+  </div>
+</div></section>
+
+<section class="sec" id="s2"><div class="prose">
+  <p class="sec-no">SECTION 02 · PATTERN MAP</p>
+  <h2>53 校三模式地图：堡垒、坦途、陷阱与真空</h2>
+  <p class="dek">判别法蒸馏自录取面板方法论，并为本领域新增第四型"真空窗"。</p>
+  <p class="body">判别规则：<b>β</b>=连续≥3年零调剂且一志愿率≥0.90；<b>γ</b>=一志愿率&lt;0.30 且（复试通过率&lt;0.50 或调剂率&gt;0.70）；<b>α</b>=复试通过率≥0.98 且一志愿率≥0.5。本轮新增的 <b>vacuum（真空窗）</b> 修正了 γ 的系统性误判：当一志愿通过率≥0.9，说明调剂生填的是空缺名额，一志愿过线即录——江苏大学"复试 2 录 2 + 调剂 8"式结构不是陷阱。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">五型分布：19 校无法归入硬阈值，混合形态才是多数</p>
+    <p class="fig-sub">PATTERN DISTRIBUTION · 53 SCHOOLS · 点击扇区下钻查看校名清单</p>
+    <canvas class="chart" id="ch-modes" height="420"></canvas>
+    <p class="fig-src"><b>K5</b> panel_critique.py, 2026-08-26 · 数据 K1 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <table class="dt" id="tbl-modes">
+    <thead><tr><th>模式</th><th>校数</th><th>对一志愿考生的含义</th><th>代表校</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="note-box"><p><b>批判性剔除。</b>烟台大学、温州大学此前在旧扫描里被当作"真空捡漏校"，本轮因复试通过率<b>全程缺测</b>被移出——没有通过率证据的"真空"，可能是"刷一志愿要调剂"的陷阱。规则：缺测按"窗口未知"降级，禁止默认充足。</p></div>
+</div></section>
+
+<section class="sec" id="s3"><div class="prose">
+  <p class="sec-no">SECTION 03 · THE COOLING, PROVEN CLEAN</p>
+  <h2>降温实证：把口径污染洗干净之后，结论反而更硬</h2>
+  <p class="dek">"必达分"含调剂抬价，不可信；β 堡垒校的纯一志愿地板分，才是无污染温度计。</p>
+  <p class="body">新东方 PDF 的"您的必达分数"按<b>全体录取者（含调剂）</b>分数分布推荐——在调剂主导校被 985 落榜高分生抬高 60-100 分（广西科技必达 373，真实一志愿地板≈B区线 265-303）。所以 20 校"门槛坍缩"里，18 所非 β 校的口径存疑。无污染验证只看 β 校（零调剂）的<b>一志愿最低录取分</b>：13 校中 <span class="hlnum" data-drill data-t="无污染验证" data-v="10 / 13 降温" data-s="仅云南大学+29升温,中科大/南航持平;最大降幅南昌大学-96。" data-src="K6 v68.69无污染验证, 2026-08-26">10 校降温</span>，仅云大升温。"0702 全市场降温"由此从"口径存疑"升级为 confA 硬结论。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">β 堡垒校一志愿地板分：2024 → 2026（斜率即降温幅度）</p>
+    <p class="fig-sub">SLOPE CHART · PURE FIRST-CHOICE FLOOR (ZERO-TRANSFER SCHOOLS ONLY) · 单位:分 · 点击线条下钻</p>
+    <canvas class="chart" id="ch-slope" height="480"></canvas>
+    <p class="fig-src"><b>K1</b> 新东方PDF · <b>K6</b> 无污染验证法, 2026-08-26 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <p class="body">南昌大学 <span class="negnum">374→278（-96）</span>、南京师大 <span class="negnum">-69</span>、哈工大 <span class="negnum">-68</span>、郑州大学 <span class="negnum">-46</span>、西南交大 <span class="negnum">-44</span>。注意：地板分降≠人人可及——南昌 2026 中位分 303，仍高出 A 区线 28 分；"降温"的含义是<b>同样的分数现在能买到更好的学校</b>，不是"不用考就能上"。</p>
+  <div class="note-box"><p><b>必达分读数纪律。</b>真空/γ 校看"必达分"会高估门槛 60-100 分；一志愿考生的真实参考系是<b>国家线 + 复试通过率</b>。必达分只在 β 堡垒校（零调剂）才等于真实录取门槛。</p></div>
+</div></section>
+
+<section class="sec" id="s4"><div class="prose">
+  <p class="sec-no">SECTION 04 · SAME SCHOOL, DIFFERENT WORLDS</p>
+  <h2>方向分裂：同一所学校，两个世界</h2>
+  <p class="dek">59 个二级学科代码逐一独立判别——按"校"评估会把 385 和 285 的考生混为一谈。</p>
+  <p class="body">山西大学是本库最大的方向分裂样本：070203 原子与分子物理，盘子 <span class="hlnum">3</span> 人、必达 <span class="negnum">385</span>（"复试 2 录 2"是幸存者偏差，系统已加<b>伪 α 警示</b>）；070205 凝聚态物理，盘子 <span class="hlnum">25</span> 人、必达 <span class="hlnum">285</span>、坍缩 -62，是 A 区代码级捡漏首选。同校差 <span class="negnum" data-drill data-t="山西大学方向分裂" data-v="100 分" data-s="070203(385) vs 070201/070205(285); 2026面板,confA;070203另涉数据矛盾(录取>复试)待2027-03补证。" data-src="K1+panel_code_scan.json, 2026-08-26">100 分</span>。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">同校不同命：三所多代码校的方向级面板</p>
+    <p class="fig-sub">CODE-LEVEL DIVERGENCE · 必达分(点)与盘子(条)双编码 · 点击下钻</p>
+    <canvas class="chart" id="ch-diverge" height="400"></canvas>
+    <p class="fig-src"><b>K1</b> 新东方PDF · panel_code_scan.json, 2026-08-26 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <table class="dt" id="tbl-diverge">
+    <thead><tr><th>学校</th><th>代码</th><th>方向</th><th>模式</th><th>必达 2026</th><th>盘子</th><th>判定</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p class="body">郑州大学给出另一种分裂：三个代码全是 β 堡垒，但必达分 <span class="hlnum">314 / 322 / 347</span> 逐级抬升——同为高保护，<b>选方向=选门槛</b>，070201 比 070205 低 33 分，这就是 9 月锁校的"低配入口"。昆明理工则是双代码同价 275 但模式互补：070201 深度真空（一志 1/调 8，坍缩 -98）、070205 α 坦途（6/6）。</p>
+</div></section>
+
+<section class="sec" id="s5"><div class="prose">
+  <p class="sec-no">SECTION 05 · THREE CHAINS, NOT ONE</p>
+  <h2>三链分离：光伏、锂电、LED 是三种命运</h2>
+  <p class="dek">"光电→光伏→钙钛矿→锂电池"是一条滑移链；产业上，它们是三条互不隶属的链。</p>
+  <p class="body">用户质询触发了本轮最彻底的一次自我核查：深圳大学光电工程（微纳光电子/光纤传感）与南昌大学硅基 LED（江风益院士，半导体照明）都不在"黑名单"上——系统里<b>根本没有黑名单</b>，"逃离光学重载"只是一条用户个人适配的 notes 文本，从未进入数值引擎；photo_couple 与 semiconductor 在引擎里是<b>加分维</b>（权重 3.0/8.0），深大物理维 28.26 分是双非最高梯队待遇。真正卡深大的是数二门槛+必达 302/目标 357+扎堆热度。</p>
+  <p class="body">而"光伏饱和"这句凭记忆的判断，在调取 644 个交易日行情后被<b>部分推翻</b>：隆基绿能确实较高点 <span class="negnum">-47%</span>，但那是硅片价格战的个体命运；链级光伏 ETF 较低点 <span class="hlnum">+35%</span>、2026 均价已高于 2024——板块在修复。锂电则是另一种故事：宁德 <span class="hlnum">+185%</span>、锂电 ETF 较低点 <span class="hlnum">+101%</span>，全链景气。单龙头代全链，会同时犯两个方向的错。</p>
+</div>
+  <div class="wide xl"><figure>
+    <p class="fig-title">两条链，两种曲线：光伏 ETF 与锂电 ETF（2024-01 至 2026-08，双周）</p>
+    <p class="fig-sub">CHAIN-LEVEL ETF · 归一化(2024-01首周=100) · 浅色=单龙头对照 · 点击曲线下钻</p>
+    <canvas class="chart" id="ch-etf" height="420"></canvas>
+    <p class="fig-src"><b>K2</b> Wind: 515790/159755/601012/300750, 2026-08-27 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <table class="dt" id="tbl-chain">
+    <thead><tr><th>链</th><th>代表标的</th><th>2024→2026</th><th>系统动作</th></tr></thead>
+    <tbody>
+      <tr><td>光伏链（光→电）</td><td class="num">ETF 515790 / 隆基 601012</td><td class="num">+35% / <span class="negnum">-47%</span></td><td>pv_solar 字段，权重 1.5（修复中，波动大）</td></tr>
+      <tr class="hl"><td>锂电/储能链</td><td class="num">ETF 159755 / 宁德 300750</td><td class="num">+101% / +185%</td><td>lithium_batt 字段，权重 2.0（链级确认）</td></tr>
+      <tr><td>LED/光电链（电→光）</td><td class="num">南昌硅基LED / 深大光电</td><td class="num">不挂钩上两条链</td><td>不加 pv/lithium 分（已有 photo/semi 加分维）</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><p><b>工程细节：一次标尺摊薄 bug 的自首。</b>新字段权重最初加进主权重表，导致 physics_scale 分母变大、全库 113 校隐形降分 1.2-1.4（南昌 pv=0 也中招）。已改为独立通道 cfg["pv_lithium_weights"]——改动后 5 所证据校 +0.8~1.7 分，其余 0 扰动。教训写进了交接文档第三节：新增权重禁止入主表。</p></div>
+</div></section>
+
+<section class="sec" id="s6"><div class="prose">
+  <p class="sec-no">SECTION 06 · THE VERDICT</p>
+  <h2>南昌大学：市场势能最低点，但不是用户的</h2>
+  <p class="dek">三维裁决——市场、适配、地源，三把尺子量出三个南昌。</p>
+  <p class="body"><b>市场维度（confA）</b>：必达分 383→283，两年 <span class="negnum">-100</span>，全 53 校最大坍缩；五年零调剂堡垒 + 2026 一志愿通过率 34/35=0.97（逼近 α）。若把报考热度看作广义坐标，系统的市场势能已降至历史基态。<b>用户适配维度</b>：初试 639 量子力学用曾谨言教材（Tier1，推导导向，D_q 评级 90 灾难档），正对"概念行、推导不行"的短板；光学浓度偏高（硅基 LED 强势）；等离子体（NCST 球形托卡马克）硕士招考名额极少。<b>市场门槛降了 100 分，科目摩擦一分没降。</b></p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">南昌大学五年面板：门槛一路下行，保护从未松动</p>
+    <p class="fig-sub">NANCHANG 070200 · 必达/中位分(线) × 一志愿录取(柱) × 调剂(恒0) · 点击下钻</p>
+    <canvas class="chart" id="ch-nanchang" height="400"></canvas>
+    <p class="fig-src"><b>K1</b> 新东方PDF南昌大学070200, 2026-08-15 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <p class="body"><b>地源维度</b>则比想象厚：NCST 球形托卡马克（2021 首放电，江西省聚变能与信息控制重点实验室）+ 江西聚变新能源（注册资本 2 亿，天眼查 confA）+ 星火一号混合堆（总投资 200 亿，2029 并网目标）。但产业链厚≠0702 硕士入口宽。<b>裁决：观察名单，不作主航道</b>；9 月简章复核 639 书目——若不变，维持；若 2027 必达维持 280-300 且模考量子推导突破 Tier1，可升级冲高候选。</p>
+  <div class="note-box"><p><b>措辞勘误（v68.69 语义审计）。</b>此前报告用"能量最低点/最小作用量原理"作比。热力学基态是物理定律，考研门槛是市场博弈均衡，二者数学结构不同。统一改为<b>"市场势能低点"</b>——类比只在市场维度成立，不作为物理定律引用。</p></div>
+</div></section>
+
+<section class="sec" id="s7"><div class="prose">
+  <p class="sec-no">SECTION 07 · CONTRARIAN PORTFOLIO V2</p>
+  <h2>捡漏组合 v2：批判修正之后还剩什么</h2>
+  <p class="dek">剔除 γ 嫌疑、补上伪 α 警示、按方向而非按校——组合比上一版更小，也更硬。</p>
+</div>
+  <div class="wide"><div id="portfolio-grid"></div></div>
+  <div class="prose">
+  <div class="note-box"><p><b>本轮最大新发现：昆明理工大学。</b>B 区 265 线 + 双代码必达 275 + α/真空双模式互补 + 理论物理方向坍缩 -98（逼近南昌 -100）。唯一缺口：初试科目未知（未入库花名册），9 月简章定生死。它的优先级已超过西北师大。</p></div>
+</div></section>
+
+<section class="sec" id="s8"><div class="prose">
+  <p class="sec-no">SECTION 08 · THE WARNING SHOT</p>
+  <h2>警示：0 / 74——堡垒翻脸只要一个缩盘年份</h2>
+  <p class="dek">北京科技大学 2026 年，一志愿复试 74 人，录取 0 人。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">北科大 070200 五年：从 85 进 66，到 74 进 0</p>
+    <p class="fig-sub">USTB ANOMALY · 一志愿复试(柱) vs 一志愿录取(点) · confB 待官方复核 · 点击下钻</p>
+    <canvas class="chart" id="ch-ustb" height="380"></canvas>
+    <p class="fig-src"><b>K8</b> 经新东方PDF转引的录取公示, 2026-08-15 · <span style="color:var(--neg)">confB 待9月官方名单复核</span></p>
+  </figure></div>
+  <div class="prose">
+  <p class="body">2022-2025 年北科大是标准 β 堡垒（年录取 56-64 人，调剂仅 2 人）；2026 年一志愿复试 <span class="hlnum">74</span> 人、录取 <span class="negnum" data-drill data-t="北科大2026一志愿" data-v="0 / 74" data-s="仅调剂录取2人(国家材料服役安全科学中心,生源华中科大349/吉大340);被刷一志愿40+人流向青岛大学5/燕山大学4/广西大学2等。公示或分批次,数理学院名单或未入PDF→降级confB。" data-src="K8, 2026-08-15">0</span> 人。系统性教训：<b>β 堡垒的"高保护"在缩盘年份可以瞬间翻脸</b>——所有"连续 N 年零调剂"都不是免疫声明，9 月简章核盘是硬纪律。</p>
+  <div class="note-box"><p><b>top3_likely_wrong（全站最可能错的三处）。</b>① 37 校光电/半导体的 pv/lithium 未定值，5 校初值系 notes+单龙头推断，补证后或下调；② LED 链景气"中性"缺数据（未拉三安光电），南昌 0 分或偏低；③ γ 校 6 所通过率缺测，若实际不刷人应从 γ 移出；石河子/西北师大的真空判定用的是 2025 年回填证据，2026 待证。</p></div>
+</div></section>
+
+<section class="sec" id="s9"><div class="prose">
+  <p class="sec-no">SECTION 09 · DIVISION OF LABOR</p>
+  <h2>人机协作：三个桶的下一班岗</h2>
+  <p class="dek">重活给集群，深活给长对话，轻活给快速通道——文件即队列，不靠会话间通信。</p>
+</div>
+  <div class="wide"><div id="k3-grid"></div></div>
+  <div class="prose">
+  <p class="body">衔接协议零新开发：K3 集群每路代理产出行级 JSON 补丁（patches/校名.json），主会话按 <span class="mono">ls patches/</span> 清单合并；K3→K2.6 走回灌胶囊 L0（50 字）+ 双索引指针，开场一句话即可无缝接手；跨项目用项目卡防张冠李戴。</p>
+</div></section>
+
+<section class="sec" id="s10"><div class="prose">
+  <p class="sec-no">SECTION 10 · VERSION LOG</p>
+  <h2>版本志：十个版本的诚实账目</h2>
+  <p class="dek">每个版本号背后都有 git 提交与全绿测试；没有一次"声称完成但未落盘"。</p>
+</div>
+  <div class="wide"><figure>
+    <p class="fig-title">v68.60 → v68.69：经验值 → 数据驱动 → 批判性自我核查</p>
+    <p class="fig-sub">VERSION TIMELINE · 点击节点下钻版本详情</p>
+    <canvas class="chart" id="ch-timeline" height="460"></canvas>
+    <p class="fig-src"><b>K5</b> 项目 CHANGELOG.md, 2026-08-27 · confA</p>
+  </figure></div>
+  <div class="prose">
+  <table class="dt" id="tbl-versions">
+    <thead><tr><th>版本</th><th>日期</th><th>内容</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <blockquote class="quote-card">
+    <p class="q-text">"铁律：持久化优先于生成。每轮迭代结束必须 ls 核验产物真实存在；不核验，不报告完成。"</p>
+    <p class="q-who">— <b>iteration-convergence-ops 铁律第一条</b>, 全程执行</p>
+  </blockquote>
+</div></section>
+</main>
+
+<footer id="src"><div class="prose">
+  <h3>信源登记册（K 锚表）</h3>
+  <p class="small" style="color:#7d93c4;margin-bottom:20px">每个关键数字都能回溯到下列来源之一；无日期来源不得入册。conf 三级：A 官方/公示，B 转引/估算，C 假设。</p>
+  <table class="src-table" id="tbl-src"></table>
+  <div style="margin-top:44px;border-top:1px solid #ffffff1c;padding-top:24px">
+    <p class="small" style="color:#7d93c4">开源仓库：<b style="color:#e8eefc">登月者的花未眠 · 海平面下的花未眠</b>（GitHub，MIT）· 数据截止 2026-08-27 · 封面与根系意象为 AI 生成的主题插画，不构成任何院校形象 · 本站全部结论仅供一位 2027 届考生的家庭决策参考，不构成通用择校建议。</p>
+  </div>
+</div></footer>
+
+<div id="drill"><div class="d-card">
+  <span class="d-x" id="drill-x">CLOSE ✕</span>
+  <p class="d-k">DRILL-DOWN</p>
+  <p class="d-t" id="d-t"></p><p class="d-v" id="d-v"></p>
+  <p class="d-s" id="d-s"></p><p class="d-src" id="d-src"></p>
+</div></div>
+
+<script src="data.js"></script>
+<script src="sources.js"></script>
+<script src="charts.js" defer></script>
+</body>
+</html>
