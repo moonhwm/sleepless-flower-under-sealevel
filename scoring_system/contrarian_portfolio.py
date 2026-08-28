@@ -6,7 +6,6 @@
 核心逻辑:一志愿填报博弈中,群体扎堆高热校(东华/新大)→这些校被高估;
 一志愿真空校(一志愿录不满+调剂主导)→被低估=捡漏窗口。
 捡漏分=真空度×(评级/12)×(1-专业热度)+0.15×调剂生源质量
-调剂生源质量=承接985/211/中科院落榜生的能力(学科认可度反向印证)
 conf: B(面板confA+评级confB+热度confB)
 """
 import json, os
@@ -23,66 +22,89 @@ def _ledger():
 
 
 def transfer_quality_score(sources):
-    """调剂生源质量:985/211/中科院关键词计数(承接名校落榜=学科认可度反向印证)。
-    sources: 调剂生源校名单。返回0-1。"""
+    """调剂生源质量:承接985/211/中科院落榜生占比(学科认可度反向印证)。"""
     if not sources:
+        return 0.3
+    elite = sum(1 for s in sources if any(k in s for k in
+                ('北京师范', '哈尔滨工业', '中国科学院', '中国科学技术', '南开', '厦门',
+                 '四川', '吉林', '山东', '东南', '华东师范', '陕西师范', '武汉理工',
+                 '天津', '暨南', '南京师范', '湖南师范')))
+    return round(min(elite / len(sources) + 0.3, 1.0), 3)
+
+
+def transfer_quality_score_network(name, year='2026'):
+    """网络版生源质量分(v68.73,极致压榨①): 精英生源承接地图+真空度加权。
+
+    与旧版差异: 旧版数单校transfer_sources精英占比;网络版跨53校统计承接顶尖985
+    落榜生计数(精英生源承接=学科认可度反向印证),再与真空度加权(0.7精英/0.3真空)。
+    合肥工业7所/广西6所/海大6所为TOP——广西/海大是捡漏组合成员,精英生源印证其学科认可度。
+    """
+    from scoring_system.transfer_network import elite_accept_map
+    e = elite_accept_map(year=year).get(name)
+    if not e:
         return 0.0
-    elite = ['中国科学技术大学', '中科院', '中国科学院', '南开大学', '厦门大学',
-             '北京师范大学', '哈尔滨工业大学', '吉林大学', '山东大学', '电子科技大学',
-             '华东师范大学', '北京理工大学', '华中科技大学', '西北工业大学', '兰州大学']
-    hit = sum(1 for s in sources for e in elite if e in s)
-    return min(1.0, hit / 3.0)
+    return round(min(1.0, e['计数'] / 3.0) * 0.7 + e['真空'] * 0.3, 3)
 
 
 def contrarian_score(vacuum, rating, social_heat, transfer_quality):
-    """捡漏分=真空度×(评级/12)×(1-专业热度)+0.15×调剂生源质量
-    vacuum: 真空度0-1; rating: 评级总分0-12; social_heat: 专业热度0-1; transfer_quality: 0-1"""
+    """反向窗口捡漏得分 = 真空度×可行性×(1-扎堆热度) + 调剂生源质量加成。"""
     base = vacuum * (rating / 12.0) * (1 - social_heat)
-    return round(base + 0.15 * transfer_quality, 3)
+    quality_boost = 0.15 * transfer_quality
+    return round(base + quality_boost, 3)
 
 
-def build_portfolio(schools, score_fn=None):
-    """全库捡漏组合:真空度≥0.5校按捡漏分排序,分主力/替补/对冲三层。"""
-    led = _ledger()
+def build_portfolio(schools, score=290):
+    """构建低陪跑成本捡漏组合。"""
+    global _LED_CACHE
+    from scoring_system.grasp_rating import rate
+    from scoring_system.heat_crawler import calibrate_beta_gamma
+    from scoring_system.social_heat_ext import cross_validate
+    from scoring_system.panel_extract import extract_all, vacuum_scan
+    if _LED_CACHE is None:
+        _LED_CACHE = extract_all(save=False)
+    led = _LED_CACHE
+    vac = {r['校']: r for r in vacuum_scan(led)}
     rows = []
-    for s in schools:
-        nm = s['name']
-        rec = led['schools'].get(nm)
-        if not rec:
+    for nm, v in vac.items():
+        if v['判定'] not in ('一志愿真空反向窗口', '部分真空'):
             continue
-        y26 = (rec.get('年份数据') or {}).get('2026') or {}
-        tot, fc = y26.get('admit_total'), y26.get('admit_first')
-        if not tot or fc is None:
+        s = next((x for x in schools if x['name'] == nm), None)
+        if not s:
             continue
-        vacuum = 1 - fc / tot
-        if vacuum < 0.5:
-            continue
-        rating = s.get('rating', 6.0) if isinstance(s.get('rating'), (int, float)) else 6.0
-        heat = s.get('hotness_index', 0.3) if isinstance(s.get('hotness_index'), (int, float)) else 0.3
-        tq = transfer_quality_score(y26.get('transfer_sources') or [])
-        cs = contrarian_score(vacuum, rating, heat, tq)
-        rows.append({'校': nm, '真空度': round(vacuum, 3), '捡漏分': cs,
-                     '调剂': y26.get('admit_transfer', 0), '生源质量': tq,
-                     'B区': s.get('line_zone') == 'B'})
+        try:
+            rt = rate(nm, schools, score)
+            rating = rt['总分']
+        except Exception:
+            rating = 6.0
+        cv = cross_validate(nm)
+        heat = cv['融合热度']
+        y26 = (led['schools'].get(nm, {}).get('年份数据') or {}).get('2026', {})
+        tq = transfer_quality_score(y26.get('transfer_sources', []))
+        cs = contrarian_score(v['真空度'], rating, heat, tq)
+        rows.append({'校': nm, '捡漏分': cs, '真空度': v['真空度'],
+                     '评级总分': rating, '热度': heat, '生源质量': tq,
+                     '不考数学': bool(s.get('not_math1')), '考量子': bool(s.get('has_qm'))})
     rows.sort(key=lambda x: -x['捡漏分'])
-    main = [r for r in rows if r['捡漏分'] >= 0.5]
-    sub = [r for r in rows if 0.3 <= r['捡漏分'] < 0.5]
-    hedge = [r for r in rows if r['真空度'] >= 0.7 and r['捡漏分'] < 0.3]
-    return {'主力': main, '替补': sub, '对冲': hedge, '全量': rows}
+    return rows
 
 
-def portfolio_advice(schools, score_fn=None, top=3):
-    """捡漏建议:主力=有把握+不考数学+考量子TOP3/替补/对冲=真空≥0.7+热度<0.2。"""
-    pf = build_portfolio(schools, score_fn)
-    return {'主力TOP': [r['校'] for r in pf['主力'][:top]],
-            '替补': [r['校'] for r in pf['替补'][:4]],
-            '对冲': [r['校'] for r in pf['对冲'][:3]],
-            '说明': '主力=捡漏分≥0.5(真空+评级双高);替补=0.3-0.5;对冲=真空≥0.7但评级/热度折价'}
+def portfolio_advice(schools, score=290, top=3):
+    """捡漏建议:主力/替补/对冲三层。"""
+    rows = build_portfolio(schools, score)
+    main = [r for r in rows if r['不考数学'] and r['考量子']][:top]
+    sub = [r for r in rows if r not in main][:4]
+    hedge = [r for r in rows if r['真空度'] >= 0.7 and r['热度'] < 0.2]
+    return {'主力': [r['校'] for r in main], '替补': [r['校'] for r in sub],
+            '对冲': [r['校'] for r in hedge],
+            '说明': '主力=有把握+不考数学+考量子;对冲=真空≥0.7+热度<0.2'}
 
 
-def deep_insight(schools, score_fn=None):
-    """捡漏组合深度洞察:与冲高校(东华/新大)形成'冲高+捡漏'双层结构。"""
-    pf = build_portfolio(schools, score_fn)
+def deep_insight(schools, score=290):
+    """捡漏组合深度洞察。"""
+    rows = build_portfolio(schools, score)
+    vac07 = [r for r in rows if r['真空度'] >= 0.7]
+    tq_top = sorted(rows, key=lambda x: -x['生源质量'])[:3]
     return {'结构': '双层:冲高校(东华/新大/福大)+捡漏校(石河子/广西/西北师)',
-            '主力数': len(pf['主力']), '替补数': len(pf['替补']),
-            '最大捡漏': pf['全量'][0] if pf['全量'] else None}
+            '真空≥0.7校数': len(vac07),
+            '调剂生源质量TOP3': [(r['校'], r['生源质量']) for r in tq_top],
+            '最佳捡漏': rows[0] if rows else None}
