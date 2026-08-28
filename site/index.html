@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>登月者的花未眠 · 海平面下的花未眠 — 物理硕士择校评分系统研究站</title>
-<meta name="description" content="物理硕士择校评分系统 v68.60–v68.69 全量研究记录：53校面板批判性重扫、代码级方向扫描、光伏锂电三链实证、七技能核查。开源研究站。">
+<meta name="description" content="物理硕士择校评分系统 v68.60–v68.78 全量研究记录：53校面板批判性重扫、代码级方向扫描、光伏锂电三链实证、软科排名、极致压榨。开源研究站。">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✾</text></svg>">
 </head>
@@ -14,11 +14,11 @@
   <canvas class="stars" id="stars"></canvas>
   <div class="moonwrap" id="moonwrap"></div>
   <div id="cover-inner">
-    <p class="c-kick">OPEN RESEARCH LOG · V68.60 — V68.69 · 2026-08</p>
+    <p class="c-kick">OPEN RESEARCH LOG · V68.60 — V68.78 · 2026-08</p>
     <h1>登月者的<span class="thin">花未眠</span><br>海平面下的<span class="thin">花未眠</span></h1>
-    <p class="c-sub">物理硕士择校评分系统研究站 —— 73 份招生 PDF、53 校、59 个二级学科代码、644 个交易日行情、七次技能核查。全部数据可下钻，全部结论带置信度。</p>
+    <p class="c-sub">物理硕士择校评分系统研究站 —— 73 份招生 PDF、53 校、59 个二级学科代码、644 个交易日行情、软科排名、七次技能核查。全部数据可下钻，全部结论带置信度。</p>
     <div class="c-meta">
-      <span>113 SCHOOLS</span><span>53 PANEL</span><span>59 CODES</span><span>570 TESTS PASSED</span><span>PARAM 220 · 缺解释 0</span>
+      <span>113 SCHOOLS</span><span>53 PANEL</span><span>59 CODES</span><span>581 TESTS PASSED</span><span>PARAM 231 · 缺解释 0</span>
     </div>
     <div class="c-img">
       <img src="https://www.kimi.com/apiv2-files/sign-obj/kimi-fs%2Ffiles%2Fblob%2Ffdd8f5c7bb3a286539e12d9f3293ad278e415180d9dda9ef3523fdcaa6c8feb6?filename=cover_sea_flower.jpg&sig=m2iBiT6niK4CnJdWJiSNwyKNK0vXWi-iDdpJKUWaXp4=&t=o" alt="海平面上的花未眠——夜色海面上的发光花" loading="eager">
@@ -43,14 +43,15 @@
   <a href="#s3">§3 降温实证</a><a href="#s4">§4 方向分裂</a><a href="#s5">§5 三链分离</a>
   <a href="#s6">§6 裁决</a><a href="#s7">§7 捡漏组合</a><a href="#s8">§8 警示</a>
   <a href="#s9">§9 协作</a><a href="#s10">§10 版本志</a><a href="#src">信源</a>
+  <a href="fusion.html" style="color:var(--blue-deep)">聚变核查分站</a><a href="narrative.html" style="color:var(--blue-deep)">元叙事分站</a>
 </div></nav>
 <main>
 
 <section class="sec" id="s0"><div class="prose">
   <p class="sec-no">SECTION 00 · EXECUTIVE SUMMARY</p>
   <h2>这一轮对话到底做了什么</h2>
-  <p class="dek">十个版本、五次结构性升级、一次推翻自己——所有数字都能点开看到出处。</p>
-  <p class="body">本对话（2026-08-25 至 08-27）把物理硕士择校评分系统从 <span class="hlnum" data-drill data-t="基线版本" data-v="v68.59" data-s="上一轮交接时的系统状态：113校主库、34校PDF台账、Gillespie经验参数。" data-src="项目 CHANGELOG.md, 2026-08-25">v68.59</span> 推进到 <span class="hlnum" data-drill data-t="当前版本" data-v="v68.69" data-s="七技能全跑核查后：拆链断裂修复、降温结论升级confA、交接五件套落盘。" data-src="git 9e2c874, 2026-08-27">v68.69</span>。四次数据扩容、三次方法论升级、一次链级自我纠错，全程 <span class="hlnum" data-drill data-t="测试基线" data-v="570 passed" data-s="pytest 全量绿（含 pre-commit hook 重建），单轮跑约 30 分钟。" data-src="tests/test_engine.py, 2026-08-27">570 项测试</span>全绿。</p>
+  <p class="dek">十九个版本、六次结构性升级、两次推翻自己——所有数字都能点开看到出处。</p>
+  <p class="body">本对话（2026-08-25 至 08-28）把物理硕士择校评分系统从 <span class="hlnum" data-drill data-t="基线版本" data-v="v68.59" data-s="上一轮交接时的系统状态：113校主库、34校PDF台账、Gillespie经验参数。" data-src="项目 CHANGELOG.md, 2026-08-25">v68.59</span> 推进到 <span class="hlnum" data-drill data-t="当前版本" data-v="v68.78" data-s="软科排名接入后：75校覆盖+动量,南昌双重信号(坍缩-100+软科上升33)。" data-src="git cefaa16, 2026-08-28">v68.78</span>。四次数据扩容、五次方法论升级、两次链级/预判自我纠错，全程 <span class="hlnum" data-drill data-t="测试基线" data-v="581 passed" data-s="pytest 全量绿（含 pre-commit hook 重建），单轮跑约 30-46 分钟。" data-src="tests/test_engine.py, 2026-08-28">581 项测试</span>全绿。</p>
   <p class="body">最硬的三条结论：其一，<b>0702 物理学考研正在全市场降温</b>——13 所零调剂堡垒校里 10 所纯一志愿地板分下降，南昌大学两年跌去 <span class="negnum" data-drill data-t="南昌大学一志愿最低录取分" data-v="374 → 278" data-s="2024→2026，-96分，全库最大降幅；β堡垒校零调剂，地板分不含调剂污染。" data-src="K1 新东方PDF · K6 无污染验证, 2026-08-26">96 分</span>；其二，<b>北京科技大学 2026 年一志愿复试 74 人、录取 0 人</b>，堡垒翻脸只需要一个缩盘年份；其三，光伏和锂电不是一条链——前者板块修复但龙头陷价格战，后者全产业链景气翻倍，混为一谈会同时犯两个错。</p>
   <blockquote class="quote-card">
     <p class="q-text">"市场维度，南昌大学是势能最低点；用户适配维度，它不是。门槛降了 100 分，但你和这门课之间的摩擦一分没降。"</p>
@@ -209,6 +210,7 @@
   <div class="wide"><div id="portfolio-grid"></div></div>
   <div class="prose">
   <div class="note-box"><p><b>本轮最大新发现：昆明理工大学。</b>B 区 265 线 + 双代码必达 275 + α/真空双模式互补 + 理论物理方向坍缩 -98（逼近南昌 -100）。唯一缺口：初试科目未知（未入库花名册），9 月简章定生死。它的优先级已超过西北师大。</p></div>
+  <div class="note-box"><p><b>计分口径敏感性（v68.74 极致压榨 Med 级发现）。</b>捡漏分用什么口径，结论会变：旧版（精英占比）石河子 0.776 居首；网络版（精英计数+真空加权）西北师 0.772 居首。<b>西北师跃升主要因真空 1.0 加权（精英仅 1 所华东师大），非精英生源驱动</b>。稳健裁决：两版 TOP6 交集 5 校（石河子/广西/西北师/<b>南理工</b>/杭电）=抗口径变化的稳健捡漏；<b>南理工新晋主力</b>（精英生源 4 所 985+真空 0.789，网络版质量 0.937 居首）。</p></div>
 </div></section>
 
 <section class="sec" id="s8"><div class="prose">
@@ -239,14 +241,14 @@
 
 <section class="sec" id="s10"><div class="prose">
   <p class="sec-no">SECTION 10 · VERSION LOG</p>
-  <h2>版本志：十个版本的诚实账目</h2>
+  <h2>版本志：十九个版本的诚实账目</h2>
   <p class="dek">每个版本号背后都有 git 提交与全绿测试；没有一次"声称完成但未落盘"。</p>
 </div>
   <div class="wide"><figure>
-    <p class="fig-title">v68.60 → v68.69：经验值 → 数据驱动 → 批判性自我核查</p>
+    <p class="fig-title">v68.60 → v68.78：经验值 → 数据驱动 → 批判性自我核查 → 极致压榨</p>
     <p class="fig-sub">VERSION TIMELINE · 点击节点下钻版本详情</p>
     <canvas class="chart" id="ch-timeline" height="460"></canvas>
-    <p class="fig-src"><b>K5</b> 项目 CHANGELOG.md, 2026-08-27 · confA</p>
+    <p class="fig-src"><b>K5</b> 项目 CHANGELOG.md, 2026-08-28 · confA</p>
   </figure></div>
   <div class="prose">
   <table class="dt" id="tbl-versions">
@@ -265,7 +267,7 @@
   <p class="small" style="color:#7d93c4;margin-bottom:20px">每个关键数字都能回溯到下列来源之一；无日期来源不得入册。conf 三级：A 官方/公示，B 转引/估算，C 假设。</p>
   <table class="src-table" id="tbl-src"></table>
   <div style="margin-top:44px;border-top:1px solid #ffffff1c;padding-top:24px">
-    <p class="small" style="color:#7d93c4">开源仓库：<b style="color:#e8eefc">登月者的花未眠 · 海平面下的花未眠</b>（GitHub，MIT）· 数据截止 2026-08-27 · 封面与根系意象为 AI 生成的主题插画，不构成任何院校形象 · 本站全部结论仅供一位 2027 届考生的家庭决策参考，不构成通用择校建议。</p>
+    <p class="small" style="color:#7d93c4">开源仓库：<b style="color:#e8eefc">登月者的花未眠 · 海平面下的花未眠</b>（GitHub，MIT）· 数据截止 2026-08-28 · 封面与根系意象为 AI 生成的主题插画，不构成任何院校形象 · 本站全部结论仅供一位 2027 届考生的家庭决策参考，不构成通用择校建议。</p>
   </div>
 </div></footer>
 
