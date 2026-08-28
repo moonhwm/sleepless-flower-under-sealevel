@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
-"""scoring_system 统一门面(v68.45)
+"""scoring_system 统一门面(v68.45→v68.78)
 8大引擎聚合 + 常用函数快捷导入。
-架构: 139模块碎片化 → facade聚合8引擎 → __init__统一门面。"""
+架构: 139模块碎片化 → facade聚合8引擎 → __init__统一门面。
+"""
 
-# ── 8大引擎门面 ──
 from scoring_system import (
     grasp_rating, benchmark_gate, admission_nn, pagerank_nn,
     param_registry, family_finance, dead_end, weekly_plan,
 )
 
-# ── 聚合引擎 ──
 from scoring_system.facade import evaluate_school, rank_all, decision_summary
 from scoring_system.path_iterator import iterate_paths, recommend
 from scoring_system.nn_deep import build_deep_scorer, build_features
@@ -50,5 +48,11 @@ from scoring_system.lock_plan import risk_buckets, gale_shapley_lock
 from scoring_system.panel_critique import (critique_all, critique_summary,
     classify_pattern, threshold_collapse, anomaly_scan, code_level_scan,
     code_divergence_report)
+from scoring_system.frontier_tracker import track as frontier_track
+from scoring_system.transfer_network import (transfer_network, elite_accept_map,
+    network_quality_score)
+from scoring_system.chain_weight_adjuster import suggest_weights as chain_suggest_weights
+from scoring_system.chain_weight_adjuster import apply_weights as chain_apply_weights
+from scoring_system.contrarian_portfolio import transfer_quality_score_network
 
-__version__ = '68.69'
+__version__ = '68.78'
