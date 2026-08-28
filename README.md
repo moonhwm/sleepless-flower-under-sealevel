@@ -5,35 +5,36 @@
 
 一套为**一位 2027 届物理学考研人**定制的择校量化决策系统 + 交互式研究站。把"考多少分、报哪所学校、落榜往哪调"建成可计算、可审计、可回测的概率模型。
 
-**交互式研究站**：见 `site/`（静态 HTML，打开 `index.html` 即读；十章交互报告，全部数字可下钻到信源，封面内嵌 TED 式演讲音频与夜海环境音）。
+**交互式研究站**：见 `site/`（静态 HTML，打开 `index.html` 即读；十章交互报告 + 聚变核查分站 fusion.html + 元叙事分站 narrative.html，全部数字可下钻到信源，封面内嵌 TED 式演讲音频与夜海环境音）。
 
 ---
 
-## 核心结论（2026-08-27，data_cutoff）
+## 核心结论（2026-08-28，data_cutoff）
 
 1. **0702 物理学考研全市场降温（confA）**：13 所零调剂堡垒校中 10 所纯一志愿地板分下降（南昌大学 374→278 = -96，南京师大 -69，哈工大 -68）；国家线 A 区 2024 顶 288 → 2026 谷 275。
 2. **北京科技大学 2026 一志愿复试 74 人录取 0 人**（confB 待核）——堡垒翻脸只要一个缩盘年份。
 3. **同校不同命**：山西大学 070203 必达 385 vs 070205 必达 285，同校差 100 分；郑州大学三代码全 β 但 314/322/347 梯度——择校必须按二级学科代码，不是按校名。
 4. **三链分离**：光伏（ETF +35% 修复中，隆基 -47% 系个体价格战）≠ 锂电（ETF +101% 全链景气）≠ LED（南昌硅基 LED / 深大光电不在光伏锂电链）。
-5. **捡漏组合 v2**：B 区主力=昆明理工（α/双代码 275/坍缩 -98）、宁夏大学（α/15 录 15）、海南大学（真空）、西北师大；剔除烟大/温大（γ 嫌疑通过率缺测）。
+5. **捡漏组合 v3（口径交集）**：两版计分口径 TOP6 交集 5 校 = 石河子/广西/西北师/**南理工**/杭电（南理工新晋主力，精英生源 4 所 985+真空 0.789）。
+6. **软科排名动量（v68.78 新接入）**：南昌大学 2024→2025 上升 **33 位**（93→60），叠加门槛坍缩 -100——2027 报考窗口双重信号。
 
 ## 仓库结构
 
 ```
-scoring_system/   评分引擎（核心模块：面板批判/三模式/坍缩检测/代码级扫描/热度传染/捡漏组合/帕累托…）
-tests/            570 项 pytest（全绿门槛；隐私断言经环境变量注入，见下）
-data/             结构化台账：53校面板/59代码扫描/国家线/链级证据/敏感性 + panel_research.db(SQLite)
+scoring_system/   评分引擎（19 核心模块：面板批判/三模式/坍缩检测/代码级扫描/热度传染/捡漏组合/帕累托/前沿追踪/调剂网络/链级调整/AdamW…）
+tests/            581 项 pytest（全绿门槛；隐私断言经环境变量注入）
+data/             结构化台账：53校面板/59代码扫描/国家线/链级证据/敏感性 + panel_research.db(SQLite) + 软科排名(75校)
 config/           权重配置 v50（含 pv_lithium 独立通道）
-site/             交互式研究站（零构建 vanilla JS，canvas 手写图表，懒渲染，音频内嵌）
-docs/             深度报告 + 交接文档 + 用户画像 + 演讲稿 + 视频策划 + SQL说明
-CHANGELOG.md      诚实版本账（v68.60 → v68.69）
+site/             交互式研究站（主站+聚变核查分站+元叙事分站，零构建 vanilla JS，canvas 手写图表，懒渲染，音频内嵌）
+docs/             深度报告 + 交接文档 + 用户画像 + 演讲稿 + 视频策划 + 实战案例 + SQL说明
+CHANGELOG.md      诚实版本账（v68.60 → v68.78）
 ```
 
 ## 快速开始
 
 ```bash
-pip install pytest pdfplumber numpy
-python3 -m pytest tests/test_engine.py -q        # 570 项
+pip install pytest pdfplumber numpy scipy
+python3 -m pytest tests/test_engine.py -q        # 581 项
 python3 -c "from scoring_system import critique_all; print(critique_all(save=False)['校数'])"
 cd site && python3 -m http.server 8000            # http://localhost:8000
 ```
@@ -42,10 +43,10 @@ cd site && python3 -m http.server 8000            # http://localhost:8000
 
 | 类别 | 内容 |
 |---|---|
-| 引擎代码 | `scoring_system/` 核心模块（panel_critique/panel_extract/contrarian_portfolio/heat_crawler/gillespie/crowd_dynamics/social_heat×2/pareto_front/engine/models/facade/grasp_rating…） |
-| 数据台账 | `data/`（53校批判/59代码扫描/链级证据/敏感性/国家线/花名册）+ `panel_research.db` |
-| 交互网站 | `site/`（十章交互报告，音频内嵌，canvas 手写图表） |
-| 文档 | `docs/`（53校重扫/方向级扫描/光电三链/交接文档/Luna范式画像/演讲稿/B站视频策划/SQL说明） |
+| 引擎代码 | `scoring_system/` 19 核心模块（panel_critique/panel_extract/contrarian_portfolio/heat_crawler/gillespie/crowd_dynamics/social_heat×2/pareto_front/frontier_tracker/transfer_network/chain_weight_adjuster/nn_deep(AdamW)/engine/models/facade/grasp_rating/rank_report…） |
+| 数据台账 | `data/`（53校批判/59代码扫描/链级证据/敏感性/国家线/花名册/软科排名75校）+ `panel_research.db` |
+| 交互网站 | `site/`（主站十章 + fusion.html 聚变核查[含新兴公司图谱+三核查维度] + narrative.html 元叙事，音频内嵌，canvas 手写图表） |
+| 文档 | `docs/`（53校重扫/方向级扫描/光电三链/交接文档/Luna范式画像/演讲稿/B站视频策划/浙工大实战案例/稳健捡漏v3/软科排名接入/SQL说明） |
 | 多媒体 | 封面意象图 + 根系意象图 + 演讲开场音频（TED 独白）+ 海浪环境音（托管于公开链接） |
 
 ## 方法论四件套
@@ -53,7 +54,7 @@ cd site && python3 -m http.server 8000            # http://localhost:8000
 - **三录取模式判别**：β 零调剂堡垒 / α 过线即录 / γ 高调剂陷阱 / **vacuum 真空窗**（本系统新增——γ 结构但通过率≥0.9 时，调剂填的是空缺名额而非刷一志愿；伪 α 警示：盘≤5 且必达≥380 的小盘高门槛）。
 - **无污染验证**：新东方 PDF"必达分"含调剂抬价（广西科技必达 373 但一志愿地板≈265）；β 校纯一志愿地板分才是降温判断的干净证据。
 - **conf 三级标注**：A 官方/公示，B 转引/估算，C 假设；北科大 0/74 降 confB 待官方复核——存疑结论永远带降级标签。
-- **param_registry**：220 项预设参数全带 rationale + 来源 + 置信度，audit() 缺解释 = 0 为硬门槛。
+- **param_registry**：231 项预设参数全带 rationale + 来源 + 置信度，audit() 缺解释 = 0 为硬门槛。
 
 ## 用户画像（Luna 趋近范式）
 
