@@ -1,7 +1,7 @@
 # 登月者的花未眠 · 海平面下的花未眠
 ### Sleepless Flower Under Sea Level — 物理硕士择校评分系统
 
-> **许可声明**：本项目自 2026-10-04 起以 **GNU Affero General Public License v3.0（AGPL-3.0）** 分发（沿革与分层判定见 [NOTICE](NOTICE)；原 MIT 副本保留于 [LICENSE.MIT](LICENSE.MIT)）。
+> **许可声明**：软件代码以 **AGPL-3.0** 分发（沿革见 [NOTICE](NOTICE)；原 MIT 保留于 [LICENSE.MIT](LICENSE.MIT)）；data/ 数据集适用 **ODbL-1.0**；文档附件适用 **CC BY-SA 4.0**（分层组合依 118 号声明口径）。
 
 > 川端康成凌晨四点看海棠花未眠。这个项目的所有核查也发生在无人值守的夜间批次里——数据在海平面下静静生长，花在水面上开。
 
