@@ -14,7 +14,7 @@ ELITE = {'中国科学技术大学','吉林大学','哈尔滨工业大学','华�
 
 
 def _ledger():
-    op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+    op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
     return json.load(open(op))
 
 

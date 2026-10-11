@@ -89,14 +89,14 @@ def build_rank_file(schools, score=290, top=30, out_path=None):
     rows = composite_rank(schools, score, top)
     md = render_markdown(rows, score)
     if out_path is None:
-        out_path = '/mnt/agents/output/物理硕士择校综合排名.md'
-    open(out_path, 'w').write(md)
+        out_path = str(Path(__file__).resolve().parent.parent / 'data' / 'rank_report.md')
+    Path(out_path).write_text(md, encoding='utf-8')
     return {'路径': out_path, 'TOP校数': len(rows), '前三名': [r['校'] for r in rows[:3]]}
 
 
 if __name__ == '__main__':
     import sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from scoring_system.engine import load_schools
     schools = load_schools()
     print(build_rank_file(schools))

@@ -16,7 +16,7 @@ _LED_CACHE = None
 def _ledger():
     global _LED_CACHE
     if _LED_CACHE is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
         _LED_CACHE = json.load(open(op))
     return _LED_CACHE
 

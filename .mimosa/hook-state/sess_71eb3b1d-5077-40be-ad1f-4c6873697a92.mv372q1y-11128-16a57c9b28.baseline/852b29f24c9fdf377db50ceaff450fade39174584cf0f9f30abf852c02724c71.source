@@ -182,7 +182,7 @@ def critique_all(led=None, save=True):
     """全台账批判性重扫。返回 {校: {pattern,collapse,anomalies,bias,sub(代码级)}}。"""
     import json, os
     if led is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
         led = json.load(open(op))
     out = {}
     for nm, rec in led['schools'].items():
@@ -197,7 +197,7 @@ def critique_all(led=None, save=True):
     res = {'as_of': '2026-08-26', '方法': 'admission-panel-analytics三模式+坍缩+刷人+偏见自查',
            '校数': len(out), 'critique': out}
     if save:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_critique.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_critique.json')
         json.dump(res, open(op, 'w'), ensure_ascii=False, indent=2)
     return res
 
@@ -206,7 +206,7 @@ def code_level_scan(led=None, save=True):
     """二级学科(专业代码)级全量扫描(v68.67):同一学校的不同代码独立判别模式/坍缩/异常。"""
     import json, os
     if led is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
         led = json.load(open(op))
     CODE_NAME = {'070200': '物理学(总口径)', '070201': '理论物理', '070202': '粒子物理与原子核物理',
                  '070203': '原子与分子物理', '070204': '等离子体物理', '070205': '凝聚态物理',
@@ -237,7 +237,7 @@ def code_level_scan(led=None, save=True):
     res = {'as_of': '2026-08-26', '说明': '二级学科代码级判别;同校不同方向模式可不同(山西070203 vs 070201)',
            '校数': len(out), '代码数': len(flat), 'by_school': out, 'flat': flat}
     if save:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_code_scan.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_code_scan.json')
         json.dump(res, open(op, 'w'), ensure_ascii=False, indent=2)
     return res
 
@@ -246,7 +246,7 @@ def code_divergence_report(scan=None):
     """同校多代码分歧清单:模式不同或必达分差≥30的方向对(报告用)。"""
     import json, os
     if scan is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_code_scan.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_code_scan.json')
         scan = json.load(open(op))
     div = []
     for nm, codes in scan['by_school'].items():
@@ -270,7 +270,7 @@ def critique_summary(crit=None):
     """按模式/坍缩/异常汇总清单(报告用)。"""
     import json, os
     if crit is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_critique.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_critique.json')
         crit = json.load(open(op))['critique']
     groups = {'alpha': [], 'beta': [], 'gamma': [], 'vacuum': [], 'mixed': [], 'undetermined': []}
     collapsed, anomalies = [], []

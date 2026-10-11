@@ -85,8 +85,8 @@ def build_ledger(save=True):
            '锚校数': len(REAL_HEAT), 'REAL_HEAT': REAL_HEAT,
            '标定': {nm: calibrate_beta_gamma(nm) for nm in REAL_HEAT}}
     if save:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'heat_ledger.json')
-        json.dump(led, open(op, 'w'), ensure_ascii=False, indent=2)
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'heat_ledger.json')
+        Path(op).write_text(json.dumps(led, ensure_ascii=False, indent=2), encoding='utf-8')
     return led
 
 

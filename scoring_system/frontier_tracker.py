@@ -92,6 +92,6 @@ def track(schools, prev_snapshot=None, curr_snapshot=None):
 
 if __name__ == '__main__':
     import json as _j
-    schools = _j.load(open(os.path.join(os.path.dirname(__file__), '..', 'data', 'schools.json')))
+    schools = _j.load(open(str(Path(__file__).resolve().parent.parent / 'data' / 'schools.json')))
     r = track(schools)
     print(_j.dumps(r, ensure_ascii=False, indent=2))

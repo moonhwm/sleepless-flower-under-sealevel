@@ -17,7 +17,7 @@ def rate(school):
     try:
         from scoring_system.heat_crawler import data_driven_hubs
         import json, os
-        schools = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'data', 'schools.json')))
+        schools = json.load(open(str(Path(__file__).resolve().parent.parent / 'data' / 'schools.json')))
         hubs = [h[0] for h in data_driven_hubs(schools, k=6)]
         E4 = -1 if school['name'] in hubs else 0
     except Exception:

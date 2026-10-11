@@ -7,8 +7,8 @@ conf: B(规则为主观阈值,链级数据A)
 """
 import json, os
 
-CHAIN = os.path.join(os.path.dirname(__file__), '..', 'data', 'pv_lithium_chain.json')
-CFG = os.path.join(os.path.dirname(__file__), '..', 'config', 'weights_v50.json')
+CHAIN = str(Path(__file__).resolve().parent.parent / 'data' / 'pv_lithium_chain.json')
+CFG = str(Path(__file__).resolve().parent.parent / 'config' / 'weights.json')
 
 PV_DOWN, PV_UP, PV_MID = 0.85, 1.1, 1.5
 LI_DOWN, LI_UP, LI_MID = 0.70, 1.3, 2.0
@@ -46,7 +46,7 @@ def apply_weights(dry_run=True):
         cfg['pv_lithium_weights']['pv'] = sug['pv']
         cfg['pv_lithium_weights']['lithium'] = sug['lithium']
         cfg['pv_lithium_weights']['_note'] += f" | v68.72链级动态调整(pv_etf={sug['pv_etf']},li_etf={sug['li_etf']})"
-        json.dump(cfg, open(CFG, 'w'), ensure_ascii=False, indent=1)
+        Path(CFG).write_text(json.dumps(cfg, ensure_ascii=False, indent=1), encoding='utf-8')
         diff['已写入'] = True
     return diff
 

@@ -138,7 +138,7 @@ def extract_all(save=True):
     led = {'as_of': '2026-08-15', '来源': '新东方院校分析报告PDF(官方公示数据汇总)',
            '解析校数': len(out), 'schools': out}
     if save:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
         json.dump(led, open(op, 'w'), ensure_ascii=False, indent=2)
     return led
 
@@ -147,7 +147,7 @@ def vacuum_scan(led=None):
     """一志愿真空反向窗口扫描:一志愿录取/总录取<0.4且调剂占比高=真空。
     返回按真空度排序的反向窗口校清单。"""
     if led is None:
-        op = os.path.join(os.path.dirname(__file__), '..', 'data', 'panel_pdf_ledger.json')
+        op = str(Path(__file__).resolve().parent.parent / 'data' / 'panel_pdf_ledger.json')
         led = json.load(open(op))
     out = []
     for nm, rec in led['schools'].items():

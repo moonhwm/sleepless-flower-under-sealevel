@@ -5,8 +5,8 @@
 """
 import json, os
 
-DATA = os.path.join(os.path.dirname(__file__), '..', 'data', 'schools.json')
-CFG = os.path.join(os.path.dirname(__file__), '..', 'config', 'weights_v50.json')
+DATA = str(Path(__file__).resolve().parent.parent / 'data' / 'schools.json')
+CFG = str(Path(__file__).resolve().parent.parent / 'config' / 'weights_v50.json')
 
 
 def _load():
