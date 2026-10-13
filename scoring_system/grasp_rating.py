@@ -1,3 +1,4 @@
+from pathlib import Path
 """grasp_rating.py — 评级(七要素+E8贝叶斯置信+注解量化调节)
 
 七要素: E1必达分/E2量子兼容/E3数学负担/E4传染枢纽/E5就业通道/E6教材同族/E7地源。

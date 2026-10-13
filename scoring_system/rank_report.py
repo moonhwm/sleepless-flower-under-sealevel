@@ -1,3 +1,4 @@
+from pathlib import Path
 """rank_report.py — 综合研判排名(v68.62→v68.70→v68.73)
 
 综合接入: grasp_rating评级(注解量化调节) + KAN可行性(统一特征) + 帕累托前沿(v68.70)

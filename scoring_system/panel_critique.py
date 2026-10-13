@@ -21,6 +21,7 @@ conf: A(台账confA官方公示汇总) 异常事件降级B待核
 """
 
 # —— 阈值常量(与 admission-panel-analytics pattern_classify 对齐,注明出处) ——
+from pathlib import Path
 BETA_MIN_YEARS = 3      # β 连续年数
 BETA_FC_RATE = 0.90     # β 一志愿率
 BETA_TR_RATE = 0.05     # β 调剂率容差

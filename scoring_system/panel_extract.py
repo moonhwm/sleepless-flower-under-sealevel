@@ -17,6 +17,7 @@ import pdfplumber
 TEMP = '/mnt/agents/temp'
 
 # 反向窗口目标校(优先深度解析)
+from pathlib import Path
 CONTRARIAN_TARGETS = ['海南大学', '浙江理工大学', '广西大学', '石河子大学', '南通大学',
                       '贵州大学', '贵州民族大学', '广西科技大学', '西藏大学']
 
